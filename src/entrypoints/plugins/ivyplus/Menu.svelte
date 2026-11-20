@@ -7,7 +7,7 @@
 
   let newName = $state("");
   let newCode = $state("");
-  let newColour = $state("#4f8cff");
+  let newColour = $state("#6283c2");
 
   let subjects = $derived(settings.classColours.state.subjects);
 
