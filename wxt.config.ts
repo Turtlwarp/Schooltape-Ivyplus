@@ -4,8 +4,7 @@ import { defineConfig } from "wxt";
 // See https://wxt.dev/api/config.html
 export default defineConfig({
   manifest: {
-    name: "Schooltape",
-    homepage_url: "https://schooltape.github.io",
+    name: "Schooltape - Ivy+",
     web_accessible_resources: [
       {
         matches: ["<all_urls>"],
@@ -14,6 +13,9 @@ export default defineConfig({
     ],
     host_permissions: ["http://*/*", "https://*/*"],
     permissions: ["storage", "contextMenus", "activeTab"],
+    browser_specific_settings: {
+      gecko: { id: "ivyplus@turtl" },
+    },
   },
   srcDir: "src",
   outDir: "dist",

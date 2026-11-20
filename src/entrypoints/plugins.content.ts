@@ -9,8 +9,10 @@ import scrollPeriod from "./plugins/scrollPeriod";
 import scrollSegments from "./plugins/scrollSegments";
 import subheader from "./plugins/subheader";
 import tabTitle from "./plugins/tabTitle";
+import ivyplus from "./plugins/ivyplus";
 
 export const plugins = [
+  ivyplus,
   subheader,
   scrollSegments,
   scrollPeriod,

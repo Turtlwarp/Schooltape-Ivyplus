@@ -36,6 +36,36 @@ export const logos = buildLogos({
     name: "Schoolbox",
     raw: schoolbox,
   },
+    default: {
+    name: "default",
+    url: "default.png",
+    large: "default-large.png",
+    rounded: true,
+  },
+    lincoln: {
+    name: "Lincoln",
+    url: "lincoln.png",
+    large: "lincoln-large.png",
+    rounded: true,
+  },
+    thorsbury: {
+    name: "Thorsbury",
+    url: "thorsbury.png",
+    large: "thorsbury-large.png",
+    rounded: true,
+  },
+    athelstane: {
+    name: "Athelstane",
+    url: "athelstane.png",
+    large: "athelstane-large.png",
+    rounded: true,
+  },
+    sherwood: {
+    name: "Sherwood",
+    url: "sherwood.png",
+    large: "sherwood-large.png",
+    rounded: true,
+  },
 });
 
 export type Settings = {
@@ -46,8 +76,12 @@ export type Settings = {
 interface LogoInfo {
   name: string;
   url: string;
+  largeUrl?: string;
+  rounded?: boolean;
 }
-type ImageSource = { name: string; url: string; raw?: never } | { name: string; url?: never; raw: string };
+type LogoExtras = { large?: string; rounded?: boolean };
+type ImageSource = LogoExtras &
+  ({ name: string; url: string; raw?: never } | { name: string; url?: never; raw: string });
 
 export default new Plugin<Settings>(
   {
@@ -58,7 +92,7 @@ export default new Plugin<Settings>(
   true,
   {
     setAsFavicon: { toggle: false },
-    logo: { id: "schooltape-rainbow" },
+    logo: { id: "default" },
   },
   async (settings) => {
     await inject(settings);
@@ -102,10 +136,17 @@ function uninject() {
 function injectLogo(logo: LogoInfo): void {
   logger.info(`injecting logo: ${logo.name}`);
 
-  injectInlineStyles(
-    `a.logo > img { content: url("${logo.url}"); max-width: 30%; width: 100px; }`,
-    `${PLUGIN_ID}-logo`,
-  );
+  let css = `a.logo > img { content: url("${logo.url}"); max-width: 30%; width: 100px; }`;
+
+    if (logo.largeUrl) {
+    css += `\na.logo > img { width: auto; max-width: none; }`;
+    css += `\nimg[src*="skin_logo_large"] { content: url("${logo.largeUrl}"); max-width: 100%; }`;
+  }
+  if (logo.rounded) {
+    css += `\nimg[src*="skin_logo_square"] { border-radius: 15px; }`;
+  }
+
+  injectInlineStyles(css, `${PLUGIN_ID}-logo`);
 }
 
 function uninjectLogo() {
@@ -161,9 +202,12 @@ async function buildLogos<T extends Record<string, ImageSource>>(logos: T): Prom
 
     if (!url) throw new Error("error getting URL for logo");
 
-    output[key] = {
+     output[key] = {
       name: value.name,
       url,
+      // @ts-expect-error unlisted CSS not a PublicPath
+      largeUrl: value.large ? browser.runtime.getURL(value.large) : undefined,
+      rounded: value.rounded,
     };
   }
 
