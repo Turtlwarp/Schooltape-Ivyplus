@@ -3,7 +3,7 @@
   "version": "4.5.7",
   "private": true,
   "description": "Schooltape - Ivy+ is an extenstion that adds additional features to the schooltape extension specifically for the Ivy platform. It is a fork of the original Schooltape extension.",
-  "homepage": "https://schooltape.github.io",
+  "homepage": "https://github.com/Turtlwarp/Schooltape-Ivyplus",
   "license": "MIT",
   "author": "42willow",
   "type": "module",
