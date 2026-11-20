@@ -2,4 +2,4 @@ This is a fork of the Schooltape Project: https://github.com/schooltape/schoolta
 
 
 $${\color{red}DISCLAIMER:}$$
-AI was used in this project to read over and delete unnecessary code and to fix one bug that I couldn't find.
+AI was used in this project to read over and delete unnecessary code and to fix one bug that I couldn't find. (sorry, I spent ages looking for the problem and I couldn't find it)
